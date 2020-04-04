@@ -1,0 +1,80 @@
+{
+  "_from": "react-native-tags",
+  "_id": "react-native-tags@2.1.0",
+  "_inBundle": false,
+  "_integrity": "sha512-B/sPwJedh2ECgjma9txZYPeZUWISRTITJqlRmRtYcmSNCaLim6Aa4zjqgRVrigl3JXk7faeKxds2qaqC6R3+Vg==",
+  "_location": "/react-native-tags",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "react-native-tags",
+    "name": "react-native-tags",
+    "escapedName": "react-native-tags",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/react-native-tags/-/react-native-tags-2.1.0.tgz",
+  "_shasum": "a25ee38075231f75d1ecd4f98160afe81ab2aa16",
+  "_spec": "react-native-tags",
+  "_where": "C:\\Users\\Carlos Tribiec\\Desktop\\finalCitasApp",
+  "author": {
+    "name": "Peter Pistorius",
+    "email": "peter.pistorius@gmail.com",
+    "url": "http://github.com/peterp/"
+  },
+  "bugs": {
+    "url": "https://github.com/peterp/react-native-tags/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "Tag input component for React Native",
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "babel-preset-react-native": "^4.0.1",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.12.1",
+    "jest": "^24.7.1",
+    "prop-types": "^15.7.2",
+    "react": "16.8.3",
+    "react-dom": "16.8.3",
+    "react-native": "^0.59.5",
+    "react-test-renderer": "^16.8.3"
+  },
+  "files": [
+    "Tags/*.js"
+  ],
+  "homepage": "https://github.com/peterp/react-native-tags#readme",
+  "jest": {
+    "preset": "react-native",
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
+    }
+  },
+  "keywords": [
+    "react native",
+    "tags",
+    "tag input"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "react-native-tags",
+  "peerDependencies": {
+    "react": ">= 16.0",
+    "react-native": ">= 0.44"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/peterp/react-native-tags.git"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "version": "2.1.0"
+}

@@ -1,0 +1,68 @@
+{
+  "_from": "react-native-progress-steps",
+  "_id": "react-native-progress-steps@1.2.9",
+  "_inBundle": false,
+  "_integrity": "sha512-sq83DRMuCcQOBiH5FiEzJ/FkQou3VyZ6w2QnecVOV8B6lZG2rb+IwfNaDN3j/fWvVsuHistCel1/9de0R7B0lA==",
+  "_location": "/react-native-progress-steps",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "react-native-progress-steps",
+    "name": "react-native-progress-steps",
+    "escapedName": "react-native-progress-steps",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/react-native-progress-steps/-/react-native-progress-steps-1.2.9.tgz",
+  "_shasum": "3a3bff8f330c14bbd7cd9333c9c760079bdb057f",
+  "_spec": "react-native-progress-steps",
+  "_where": "C:\\Users\\Carlos Tribiec\\Desktop\\finalCitasApp",
+  "author": {
+    "name": "Colby Miller"
+  },
+  "bugs": {
+    "url": "https://github.com/colbymillerdev/react-native-progress-steps/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "lodash": "^4.17.11",
+    "prop-types": "^15.6.2"
+  },
+  "deprecated": false,
+  "description": "A simple and fully customizable React Native component that implements a progress stepper UI.",
+  "devDependencies": {
+    "metro-react-native-babel-preset": "^0.51.1"
+  },
+  "homepage": "https://github.com/colbymillerdev/react-native-progress-steps#readme",
+  "keywords": [
+    "react-native",
+    "react component",
+    "react native component",
+    "react",
+    "react native",
+    "mobile",
+    "ios",
+    "android",
+    "ui",
+    "stepper",
+    "progress",
+    "progress steps"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "react-native-progress-steps",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/colbymillerdev/react-native-progress-steps.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.2.9"
+}
