@@ -66,7 +66,6 @@ const App = () => {
 
 const styles = StyleSheet.create({
   header: {
-    color: "white",
     backgroundColor: "#C52233",
   },
 });

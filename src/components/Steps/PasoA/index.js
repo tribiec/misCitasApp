@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Text } from "react-native";
 import { textStyles, styles } from "../Styles";
 import { CheckBox } from "react-native-elements";
@@ -8,8 +8,6 @@ import { useStateValue } from "../../../providers/StepsContext";
 
 const PasoA = () => {
   const [context, dispatch] = useStateValue();
-  const [universidad, setUniversidad] = useState("");
-
   return (
     <>
       <Text style={[textStyles.general, textStyles.boxInfo]}>
@@ -28,8 +26,7 @@ const PasoA = () => {
           containerStyle={{
             backgroundColor: null,
             borderRadius: null,
-            borderWidth: null,
-            color: "blue",
+            borderWidth: null
           }}
           checkedColor="#C4C4C4"
           titleProps={{ color: "blue" }}

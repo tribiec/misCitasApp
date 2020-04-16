@@ -7,12 +7,14 @@ import { useStateValue } from "../../../providers/StepsContext";
 
 const PasoB = () => {
   const [context, dispatch] = useStateValue();
+  const [sexo, setSexo] = useState("");
+  const [preferencia, setPreferencia] = useState("");
 
-  React.useEffect(() => {
-    return () => {
-      alert("SALIENDO DEL COMPONENTE")
-    }
-  }, []);
+  const sexOpciones = [
+    { label: "Hombre", value: "Hombre" },
+    { label: "Mujer", value: "Mujer" },
+    { label: "No Binario", value: "No" },
+  ];
   return (
     <>
       <View>
@@ -35,9 +37,9 @@ const PasoB = () => {
             mode="flat"
             theme={paperTheme.input}
             style={styles.input}
-            value={context.fullName}
+            value={context.fullNombre}
             onChangeText={(_fullName) =>
-              dispatch({ type: "SET_NAME", value: _fullName })
+              dispatch({ type: "SET_NOMBRE", value: _fullName })
             }
           />
           <TextInput
@@ -63,24 +65,29 @@ const PasoB = () => {
             }
           />
           <View>
-            <Text style={[textStyles.general,{ marginVertical: 10 }]}>Sexo  (*):</Text>
+            <Text style={[textStyles.general, { marginVertical: 10 }]}>
+              Sexo (*):
+            </Text>
             <RNPickerSelect
-              onValueChange={(value) => console.log(value)}
+              onValueChange={(value) => dispatch({type: "SET_SEXO", value})}
               items={sexOpciones}
               style={pickerSelectStyles}
               useNativeAndroidPickerStyle={true}
-              placeholder={{label: "...", value: 0}}
+              value={context.sexo}
             />
           </View>
-          
+
           <View>
-            <Text style={[textStyles.general,{ marginVertical: 10 }]}>Busco salir con (*):</Text>
+            <Text style={[textStyles.general, { marginVertical: 10 }]}>
+              Busco salir con (*):
+            </Text>
             <RNPickerSelect
-              onValueChange={(value) => console.log(value)}
-              items={sexOpciones}
+              onValueChange={(value) => dispatch({type: "SET_PREFERENCIA", value})}
+              items={[{ label: "Mujeres", value: "Mujeres" },
+              { label: "Hombres", value: "Hombres" }]}
               style={pickerSelectStyles}
               useNativeAndroidPickerStyle={true}
-              placeholder={{label: "...", value: 0}}
+              value={context.preferencia}
             />
           </View>
 

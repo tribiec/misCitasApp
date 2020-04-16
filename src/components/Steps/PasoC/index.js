@@ -43,9 +43,9 @@ const PasoC = () => {
             mode="flat"
             theme={paperTheme.input}
             style={[styles.input, { marginVertical: 30}]}
-            value={context.clave}
+            value={context.clave_conf}
             onChangeText={(_clave) =>
-              dispatch({ type: "SET_CLAVE", value: _clave })
+              dispatch({ type: "SET_CLAVE_CONF", value: _clave })
             }
             secureTextEntry
           />

@@ -4,82 +4,74 @@ import {
   Text,
   StyleSheet,
   Button,
-  TouchableHighlight,
-  Alert
+  TouchableHighlight
 } from "react-native";
+import Alert from "../../components/Alert";
 import { TextInput } from "react-native-paper";
 
 const Login = ({ navigation }) => {
   const [correo, setCorreo] = useState("");
   const [clave, setClave] = useState("");
-  
+
   const submitLogin = () => {
-    if(correo == "" && clave == ""){
-      Alert.alert(
-        "Faltan Campos",
-        "Todos los campos deben ser llenados",
-        [
-          { text: "OK", onPress: () => console.log("OK Pressed") }
-        ],
-        { cancelable: false }
-      );
-    }else{
-      Alert.alert(
-        "Cargando login...",
-        "falta hacer el request al API (Motivos de Tiempo para proxima entrega)",
-        [
-          { text: "OK", onPress: () => console.log("OK Pressed") }
-        ],
-        { cancelable: false }
+    if (correo.length === 0 || clave.length === 0) {
+      Alert("Faltan Campos","Todos los campos deben ser llenados...");
+    } else if (
+      !/^[a-zA-Z0-9\.]+@[a-zA-Z0-9]+(\-)?[a-zA-Z0-9]+(\.)?[a-zA-Z0-9]{2,6}?\.[a-zA-Z]{2,6}$/.test(
+        correo
       )
+    ) {
+      Alert("Campo Invalido","Porfavor ingrese un correo valido...");
+    } else {
+      Alert("OK","OK");
     }
-  }
+  };
 
   return (
     <View style={styles.container}>
-        <Text style={textStyles.intro}>
-          Quieres pasarla bien con gente nueva?, Buscas una velada, una ocasión
-          casual?
-        </Text>
-        <Text
-          style={textStyles.join}
-          onPress={() => navigation.navigate("Register")}
-        >
-          Registrate Ahora
-        </Text>
-        <View style={styles.loginBox}>
+      <Text style={textStyles.intro}>
+        Quieres pasarla bien con gente nueva?, Buscas una velada, una ocasión
+        casual?
+      </Text>
+      <Text
+        style={textStyles.join}
+        onPress={() => navigation.navigate("Register")}
+      >
+        Registrate Ahora
+      </Text>
+      <View style={styles.loginBox}>
         <Text style={textStyles.ingresa}>Ya tienes cuenta?, ingresa:</Text>
-          <TextInput
-            underlineColor="#C52233"
-            label="Correo Electronico"
-            mode="flat"
-            theme={paperTheme.input}
-            style={{ marginTop: 20 }}
-            value={correo}
-            onChangeText={(_correo) => setCorreo(_correo)}
-          />
-          <TextInput
-            underlineColor="#C52233"
-            label="Contraseña"
-            mode="flat"
-            theme={paperTheme.input}
-            style={{ marginTop: 20 }}
-            value={clave}
-            onChangeText={(_clave) => setClave(_clave)}
-            secureTextEntry
-          />
-          <Text style={textStyles.forgot}>Olvidaste tu contraseña?</Text>
-          <TouchableHighlight style={styles.botonContainer}>
-            <TouchableHighlight style={styles.boton}>
-              <Button
-                title="Ingresar"
-                color="white"
-                accessibilityLabel="Ingresar al Sistema"
-                onPress={submitLogin}
-              />
-            </TouchableHighlight>
+        <TextInput
+          underlineColor="#C52233"
+          label="Correo Electronico"
+          mode="flat"
+          theme={paperTheme.input}
+          style={{ marginTop: 20 }}
+          value={correo}
+          onChangeText={(_correo) => setCorreo(_correo)}
+        />
+        <TextInput
+          underlineColor="#C52233"
+          label="Contraseña"
+          mode="flat"
+          theme={paperTheme.input}
+          style={{ marginTop: 20 }}
+          value={clave}
+          onChangeText={(_clave) => setClave(_clave)}
+          secureTextEntry
+        />
+        <Text style={textStyles.forgot}>Olvidaste tu contraseña?</Text>
+        <TouchableHighlight style={styles.botonContainer}>
+          <TouchableHighlight style={styles.boton}>
+            <Button
+              title="Ingresar"
+              color="white"
+              accessibilityLabel="Ingresar al Sistema"
+              onPress={submitLogin}
+            />
           </TouchableHighlight>
-        </View>
+        </TouchableHighlight>
+      </View>
     </View>
   );
 };
@@ -87,11 +79,11 @@ const Login = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
-    flex: 1
+    flex: 1,
   },
   loginBox: {
     flex: 1,
-    marginHorizontal: 15
+    marginHorizontal: 15,
   },
   botonContainer: {
     marginTop: 50,
@@ -104,7 +96,7 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     borderRadius: 50,
-    marginTop: 25
+    marginTop: 25,
   },
 });
 
@@ -116,7 +108,7 @@ const textStyles = StyleSheet.create({
     paddingHorizontal: 18,
     fontSize: 16,
     lineHeight: 18,
-    letterSpacing: 1.5
+    letterSpacing: 1.5,
   },
   join: {
     color: "white",

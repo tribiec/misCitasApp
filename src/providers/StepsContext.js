@@ -8,7 +8,7 @@ export const ContextProvider = ({ children }) => {
       case "SET_ESTUDIA":
         return { ...state, estudia: !state.estudia };
       case "SET_UNIVERSIDAD":
-        return { ...state, universidad: !state.estudia };
+        return { ...state, universidad: action.value };
       case "SET_GUSTOS":
         return { ...state, gustos: action.value };
       case "SET_SELECTED":
@@ -27,6 +27,8 @@ export const ContextProvider = ({ children }) => {
         return { ...state, correo: action.value };
       case "SET_CLAVE":
         return { ...state, clave: action.value };
+      case "SET_CLAVE_CONF":
+        return { ...state, clave_conf: action.value };
       default:
         console.error("Reducer, type not found...", action.type);
         break;
@@ -38,11 +40,12 @@ export const ContextProvider = ({ children }) => {
     estudia: true,
     universidad: "",
     fechaNacimiento: null,
-    ciudad: null,
+    ciudad: "",
     sexo: null,
     preferencia: null,
     correo: "",
     clave: "",
+    clave_conf: ""
   });
 
   return (
