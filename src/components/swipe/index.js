@@ -12,13 +12,7 @@ import {
 const SCREEN_HEIGHT = Dimensions.get("window").height
 const SCREEN_WIDTH = Dimensions.get("window").width
 
-//const ARTICLES = [
-//    { id: "1", uri: require('./assets/1.png') },
-//    { id: "2", uri: require('./assets/2.png') },
-  //  { id: "3", uri: require('./assets/3.jpg') },
-    //{ id: "4", uri: require('./assets/4.png') },
-    //{ id: "5", uri: require('./assets/5.png') },
-//]
+
 
 class DeckSwiper extends Component {
 
