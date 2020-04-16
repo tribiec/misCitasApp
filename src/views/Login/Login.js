@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -8,11 +8,10 @@ import {
   Alert
 } from "react-native";
 import { TextInput } from "react-native-paper";
-import BackgroundContainer from "../../components/BackgroundContainer";
 
 const Login = ({ navigation }) => {
-  const [correo, setCorreo] = React.useState("");
-  const [clave, setClave] = React.useState("");
+  const [correo, setCorreo] = useState("");
+  const [clave, setClave] = useState("");
   
   const submitLogin = () => {
     if(correo == "" && clave == ""){
@@ -35,9 +34,9 @@ const Login = ({ navigation }) => {
       )
     }
   }
+
   return (
-    <View style={{ flex: 1 }}>
-      <BackgroundContainer>
+    <View style={styles.container}>
         <Text style={textStyles.intro}>
           Quieres pasarla bien con gente nueva?, Buscas una velada, una ocasión
           casual?
@@ -48,8 +47,8 @@ const Login = ({ navigation }) => {
         >
           Registrate Ahora
         </Text>
-        <Text style={textStyles.ingresa}>Ya tienes cuenta?, ingresa:</Text>
         <View style={styles.loginBox}>
+        <Text style={textStyles.ingresa}>Ya tienes cuenta?, ingresa:</Text>
           <TextInput
             underlineColor="#C52233"
             label="Correo Electronico"
@@ -81,23 +80,18 @@ const Login = ({ navigation }) => {
             </TouchableHighlight>
           </TouchableHighlight>
         </View>
-      </BackgroundContainer>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "column",
-    backgroundColor: "red",
-    flex: 2,
-  },
-  image: {
-    flex: 1,
+    backgroundColor: "white",
+    flex: 1
   },
   loginBox: {
-    backgroundColor: "rgba(196, 196, 196, 0.2)",
     flex: 1,
+    marginHorizontal: 15
   },
   botonContainer: {
     marginTop: 50,
@@ -107,19 +101,22 @@ const styles = StyleSheet.create({
   boton: {
     backgroundColor: "#C52233",
     height: 60,
-    width: "60%",
+    width: "100%",
     justifyContent: "center",
     borderRadius: 50,
+    marginTop: 25
   },
 });
 
 const textStyles = StyleSheet.create({
   intro: {
-    color: "white",
+    color: "#797A7A",
     textAlign: "center",
     paddingTop: 40,
-    fontSize: 18,
-    letterSpacing: 2,
+    paddingHorizontal: 18,
+    fontSize: 16,
+    lineHeight: 18,
+    letterSpacing: 1.5
   },
   join: {
     color: "white",
@@ -128,18 +125,18 @@ const textStyles = StyleSheet.create({
     textDecorationLine: "underline",
     color: "#C52233",
     fontSize: 18,
-    marginTop: 25,
+    marginTop: 40,
   },
   ingresa: {
-    color: "white",
-    marginTop: 40,
+    color: "#797A7A",
+    marginTop: 70,
     fontSize: 16,
-    textAlign: "center",
+    textAlign: "left",
   },
   forgot: {
     textAlign: "center",
-    color: "white",
-    fontSize: 16,
+    color: "#C52233",
+    fontSize: 18,
     fontWeight: "bold",
     textDecorationLine: "underline",
     marginTop: 90,
@@ -150,8 +147,8 @@ const paperTheme = {
   input: {
     colors: {
       primary: "#C52233",
-      text: "white",
-      placeholder: "white",
+      text: "#797A7A",
+      placeholder: "#797A7A",
       background: "rgba(250,250,250,0)",
     },
   },

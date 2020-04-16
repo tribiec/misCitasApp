@@ -1,23 +1,23 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import { ContextProvider } from "../../providers/StepsContext";
-import BackgroundContainer from "../../components/BackgroundContainer";
-import { textStyles, styles } from "./Styles";
-import Steps from "./Steps"
+import Steps from "../../components/Steps"
 
 const Login = () => {
   return (
     <View style={{ flex: 1 }}>
-      <BackgroundContainer>
-        <Text style={textStyles.infoPersonal}>Informacion Personal</Text>
-        <View style={styles.registerBox}>
+        <View style={registerBox}>
           <ContextProvider>
             <Steps/>
           </ContextProvider>
         </View>
-      </BackgroundContainer>
     </View>
   );
 };
+
+const registerBox = {
+  minHeight: "100%",
+  marginHorizontal: 15
+}
 
 export default Login;

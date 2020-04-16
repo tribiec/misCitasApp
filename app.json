@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "misCitasAppV2",
-    "slug": "finalCitasApp",
+    "name": "misCitasApp",
+    "slug": "miscitasapp",
     "platforms": [
       "ios",
       "android",
@@ -24,6 +24,7 @@
     "ios": {
       "supportsTablet": true
     },
-    "description": ""
+    "description": "A mobile dating app using React Native with Expo",
+    "githubUrl": "https://github.com/tribiec/misCitasApp"
   }
 }

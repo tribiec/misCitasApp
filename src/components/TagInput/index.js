@@ -14,8 +14,8 @@ const InputTags = ({placeholder = "", data, setData, tipo}) => {
           initialTags={data}
           inputStyle={{
             backgroundColor: "rgba(250,250,250,0)",
-            borderBottomWidth: 2,
-            borderBottomColor: "white",
+            borderBottomWidth: 1,
+            borderBottomColor: "#C52233",
           }}
           inputContainerStyle={{ backgroundColor: "rgba(250,250,250,0)" }}
           onChangeTags={(_tags) => setData({type: `SET_${tipo}`, value: _tags})}

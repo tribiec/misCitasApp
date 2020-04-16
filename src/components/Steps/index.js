@@ -1,13 +1,13 @@
 import React from "react";
 import { View, Alert } from "react-native";
 import {
-  ProgressSteps as Pasos,
-  ProgressStep as Paso,
-} from "../../../../temp/libs/react-native-progress-step-mod";
-import { useStateValue } from "../../../providers/StepsContext";
-import PasoA from "../PasoA";
-import PasoB from "../PasoB";
-import PasoC from "../PasoC";
+    ProgressSteps as Pasos,
+    ProgressStep as Paso,
+  } from "../../../temp/libs/react-native-progress-step-mod";
+import { useStateValue } from "../../providers/StepsContext";
+import PasoA from "./PasoA"
+import PasoB from "./PasoB";
+import PasoC from "./PasoC";
 const Steps = () => {
   const [context, dispatch] = useStateValue();
 
@@ -48,24 +48,7 @@ const Steps = () => {
         nextBtnTextStyle={buttonStyle}
         previousBtnText="Atras"
         previousBtnTextStyle={buttonStyle}
-        onSubmit={() => {
-          if (
-            context.correo == "" &&
-            context.clave == "" &&
-            context.fullName == "" &&
-            context.gender == null
-          ) {
-            generarAlerta(
-              "Faltan Campos",
-              "Porfavor llene todos los campos obligatorios marcados con (*)"
-            );
-          } else {
-            generarAlerta(
-              "Formulario",
-              "Campos Ok...Haciendo peticion al API... (disponible proxima entrega)"
-            );
-          }
-        }}
+        onSubmit={() => {}}
       >
         <PasoC />
       </Paso>

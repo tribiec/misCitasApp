@@ -2,36 +2,33 @@ import { StyleSheet } from "react-native";
 
 const textStyles = StyleSheet.create({
   general: {
-    color: "white",
+    color: "#797A7A",
     textAlign: "center",
   },
   infoPersonal: {
-    color: "white",
+    color: "#797A7A",
     marginTop: 30,
-    fontSize: 24,
+    fontSize: 2,
     fontStyle: "italic",
     paddingLeft: 4,
   },
   boxInfo: {
     padding: 20,
     fontSize: 16,
-    fontWeight: "300",
+    fontWeight: "300"
   },
   questionTitle: {
     fontSize: 23,
+    marginVertical: 5
   },
   question: {
-    color: "white",
+    color: "#797A7A",
     fontSize: 17,
     paddingLeft: 15,
     marginTop: 20,
   },
-  masInfo: {
-    color: "white",
-    paddingLeft: 10,
-  },
   inputLabel: {
-    color: "white",
+    color: "#797A7A",
     fontSize: 15,
   },
   inputBottom: {
@@ -40,37 +37,31 @@ const textStyles = StyleSheet.create({
   },
   titleInputGroup: {
     marginBottom: 20,
-  },
-  titleDatosIngreso:{
-    color: "white",
-    fontSize: 24,
-    marginTop: 40
   }
 });
 
 const styles = StyleSheet.create({
   registerBox: {
-    marginTop: 20,
-    backgroundColor: "#C52233",
-    minHeight: 550,
+    minHeight: "100%",
+    marginHorizontal: 15
   },
-  picker: {
-    alignItems: "center",
-    justifyContent: "center",
+  checkBox: {
     flexDirection: "row",
-    padding: 10,
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginVertical: 30
   },
   inputGroup: {
-    marginBottom: 40,
-    paddingHorizontal: 10,
+    marginBottom: 0,
+    paddingHorizontal: 20,
   },
   input: {
-    marginTop: 5,
+    marginVertical: 5
   },
   inputsSelect: {
     flexDirection: "row",
     alignItems: "center",
-    borderBottomColor: "white",
+    borderBottomColor: "#C52233",
     borderBottomWidth: 1,
     paddingBottom: 20
   },

@@ -5,20 +5,22 @@ export const Context = new createContext();
 export const ContextProvider = ({ children }) => {
   const reducer = (state, action) => {
     switch (action.type) {
-      case "SET_TAGS":
-        return { ...state, tags: action.value };
+      case "SET_ESTUDIA":
+        return { ...state, estudia: !state.estudia };
+      case "SET_UNIVERSIDAD":
+        return { ...state, universidad: !state.estudia };
       case "SET_GUSTOS":
         return { ...state, gustos: action.value };
       case "SET_SELECTED":
         return { ...state, selectedValue: action.value };
-      case "SET_NAME":
-        return { ...state, fullName: action.value };
-      case "SET_GENDER":
-        return { ...state, gender: action.value };
-      case "SET_BIRTH":
-        return { ...state, birthDate: action.value };
-      case "SET_LOCATION":
-        return { ...state, location: action.value };
+      case "SET_NOMBRE":
+        return { ...state, fullNombre: action.value };
+      case "SET_SEXO":
+        return { ...state, sexo: action.value };
+      case "SET_NACIMIENTO":
+        return { ...state, fechaNacimiento: action.value };
+      case "SET_CIUDAD":
+        return { ...state, ciudad: action.value };
       case "SET_PREFERENCIA":
         return { ...state, preferencia: action.value };
       case "SET_CORREO":
@@ -31,14 +33,14 @@ export const ContextProvider = ({ children }) => {
     }
   };
   const [context, dispatch] = useReducer(reducer, {
-    tags: [],
     gustos: [],
-    selectedValue: null,
-    fullName: "",
-    birthDate: null,
-    location: null,
-    gender: null,
-    preferencia: "male",
+    fullNombre: "",
+    estudia: true,
+    universidad: "",
+    fechaNacimiento: null,
+    ciudad: null,
+    sexo: null,
+    preferencia: null,
     correo: "",
     clave: "",
   });
