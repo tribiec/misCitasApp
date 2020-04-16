@@ -5,6 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import SplashScreen from "./src/components/SplashScreen";
 import Login from "./src/views/Login/Login";
 import Register from "./src/views/Register/Register";
+import Perfil from "./src/views/Perfil/Perfil";
 import useLoadStatic from "./src/providers/hooks/useLoadStatic";
 
 const Stack = createStackNavigator();
@@ -14,7 +15,6 @@ const App = () => {
     require("./assets/drink.jpg"),
     require("./assets/date.jpg"),
   ]);
-  const Dashboard = () => (<></>);
   const Mensajes = () => (<></>);
   return (
     <NavigationContainer>
@@ -48,8 +48,8 @@ const App = () => {
               }}
             />
             <Stack.Screen
-              name="Dashboard"
-              component={Dashboard}
+              name="Perfil"
+              component={Perfil}
               options={{ headerShown: false }}
             />
             <Stack.Screen

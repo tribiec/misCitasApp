@@ -60,7 +60,7 @@ const Login = ({ navigation }) => {
           onChangeText={(_clave) => setClave(_clave)}
           secureTextEntry
         />
-        <Text style={textStyles.forgot}>Olvidaste tu contraseña?</Text>
+        <Text style={textStyles.forgot} onPress={() => navigation.navigate("Perfil")}>Olvidaste tu contraseña?</Text>
         <TouchableHighlight style={styles.botonContainer}>
           <TouchableHighlight style={styles.boton}>
             <Button
