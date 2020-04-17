@@ -14,7 +14,7 @@ import Fetch from "../../providers/Fetch";
 const Login = ({ route, navigation }) => {
   const [correo, setCorreo] = useState("");
   const [clave, setClave] = useState("");
-
+  
   const submitLogin = async () => {
     if (correo.length === 0 || clave.length === 0) {
       Alert("Faltan Campos","Todos los campos deben ser llenados...");
@@ -27,9 +27,9 @@ const Login = ({ route, navigation }) => {
     } else {
       const resp = await Fetch.post("login",{correo, clave});
       if(resp.status === 200){
-        const { correo, fullNombre, token } = resp.message;
+        const { correo, fullNombre, token, _id } = resp.message;
         AsyncStorage.setItem('misCitasToken', JSON.stringify({
-          correo, fullNombre, token
+          correo, fullNombre, token, _id
         }), (err) => {
           if(err){
             alert("Error")

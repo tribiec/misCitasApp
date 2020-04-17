@@ -30,6 +30,7 @@ const Perfil = ({ navigation }) => {
   useEffect(() => {
     CheckToken(navigation).then(data => {
       dispatch({type: "SET_NOMBRE", value: data.fullNombre});
+      dispatch({type: "SET_ID", value: data._id})
       dispatch({type: "SET_TOKEN", value: data.token});
       getLocation().then((loc) => {
         setLocation(loc);

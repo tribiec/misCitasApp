@@ -2,12 +2,15 @@ import React, { useState, useRef, useEffect } from "react";
 import { StyleSheet, Text, View, Dimensions, Animated } from "react-native";
 import SwipeCards from "react-native-swipe-cards";
 import BackgroundContainer from "../BackgroundContainer";
+import Fetch from "../../providers/Fetch";
+import { useStateValue } from "../../providers/ContextProvider";
 
 const Swipe = ({cards}) => {
   const [agotado, setAgotado] = useState(false);
   const [showOk, setOk] = useState(false);
   const [showNo, setNo] = useState(false);
-
+  const [context, dispatch] = useStateValue();
+  
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   const fadeIn = () => {
@@ -48,14 +51,16 @@ const Swipe = ({cards}) => {
       </Animated.View>
     );
   };
-
   const handleNo = () => {};
-
-  const handleYes = () => {
-    // if(showOk) setOk(false);
+  const handleYes = (card) => {
     setOk(true);
+    console.log(context._id);
+    console.log(card._id);
+    Fetch.post('user/like',{id_dest: card._id, _id: context._id},context.token).then(resp=> {
+      console.log(resp);
+    })
   };
-
+  
   const cardRetirada = (index) => {
     console.log(`The index is ${index}`);
     const CARD_REFRESH_LIMIT = 1;

@@ -19,6 +19,8 @@ export const ContextProvider = ({ children }) => {
         return { ...state, logged: action.value };
       case "SET_TOKEN":
         return { ...state, token: action.value };
+      case "SET_ID":
+        return { ...state, _id: action.value };
       default:
         console.error("Reducer, type not found...", action.type);
         break;
@@ -26,6 +28,7 @@ export const ContextProvider = ({ children }) => {
   };
 
   const [context, dispatch] = useReducer(reducer, {
+    _id: null,
     gustos: [],
     fullNombre: "",
     universidad: "",

@@ -19,11 +19,15 @@ const Buscador = ({ navigation }) => {
 
   useEffect(() => {
     const cargarCards = async () => {
-      try{
-        const resp = await Fetch.get('user/swipes', context.token);
-        if(resp.status === 200 && resp.message.lenght === 0){
+      try {
+        const resp = await Fetch.get("user/swipes", context.token);
+        console.log(resp.message.length);
+        if (resp.message.length > 0) {
+          setCards(resp.message);
+        } else {
           setCards([
             {
+              _id: 1,
               fullNombre: "Margot Robbie",
               bio: "Bendecida x dios",
               universidad: "Universidad Rafael Urdaneta",
@@ -31,6 +35,7 @@ const Buscador = ({ navigation }) => {
               image: require("../../../assets/1.jpg"),
             },
             {
+              _id: 2,
               fullNombre: "Megan Fox",
               bio: "Haciendo peliculas",
               universidad: null,
@@ -38,6 +43,7 @@ const Buscador = ({ navigation }) => {
               image: require("../../../assets/2.png"),
             },
             {
+              _id: 3,
               fullNombre: "Megan Fox",
               bio: "Haciendo peliculas",
               universidad: null,
@@ -45,6 +51,7 @@ const Buscador = ({ navigation }) => {
               image: require("../../../assets/3.png"),
             },
             {
+              _id: 4,
               fullNombre: "Megan Fox",
               bio: "Haciendo peliculas",
               universidad: null,
@@ -52,6 +59,7 @@ const Buscador = ({ navigation }) => {
               image: require("../../../assets/4.jpg"),
             },
             {
+              _id: 5,
               fullNombre: "Megan Fox",
               bio: "Haciendo peliculas",
               universidad: null,
@@ -59,13 +67,11 @@ const Buscador = ({ navigation }) => {
               image: require("../../../assets/5.jpg"),
             },
           ]);
-        }else{
-          setCards(resp.message);
         }
-      }catch(err){
+      } catch (err) {
         console.log("Error en cargar Cards");
       }
-    }
+    };
     cargarCards();
   }, []);
 
@@ -83,7 +89,7 @@ const Buscador = ({ navigation }) => {
           </TouchableOpacity>
         </Instrucciones>
       ) : (
-        <Swipe cards={cards}/>
+        <Swipe cards={cards} />
       )}
     </View>
   );
