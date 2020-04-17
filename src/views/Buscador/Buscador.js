@@ -7,7 +7,7 @@ import {
   Dimensions,
 } from "react-native";
 import { useStateValue } from "../../providers/ContextProvider";
-import Swipe from "../../components/Swipe";
+import Swipe from "../../components/SwipeCard";
 import Header from "../../components/Header";
 import Instrucciones from "../../components/Message";
 import Fetch from "../../providers/Fetch";
