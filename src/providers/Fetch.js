@@ -1,7 +1,7 @@
 class Fetch {
     inicial({ method, body = null, endpoint }) {
         return new Promise((resolve, reject) => {
-            fetch(`/api/${endpoint}`, {
+            fetch(`http://192.168.1.3:5000/${endpoint}`, {
                 method,
                 headers: {
                     'Accept': 'application/json',

@@ -16,8 +16,13 @@ const useLoadStatic = (_resources) => {
     const checkLogin = async () => {
       let token;
       try{
-        token = await AsyncStorage.getItem('token');
-        if(token != null) setLogged(true);
+        token = await AsyncStorage.getItem('misCitasToken');
+        if(token != null){
+          setLogged(true)
+        }else{
+          console.log("ERROR, NO SE ENCONTRO TOKEN");
+        }
+        //Enviar Token al Back para ver si es valido o no
       }catch(err){
         console.log(err);
       }
@@ -31,7 +36,7 @@ const useLoadStatic = (_resources) => {
           );
           checkLogin();
       }, []);
-      return [loading, logged];
+      return [loading, logged, setLogged];
 }
 
 export default useLoadStatic;

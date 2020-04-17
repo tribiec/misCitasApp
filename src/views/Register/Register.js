@@ -1,15 +1,15 @@
 import React from "react";
 import { View } from "react-native";
-import { ContextProvider } from "../../providers/StepsContext";
+import { ContextProvider as FormContext } from "../../providers/StepsContext";
 import Steps from "../../components/Steps"
 
-const Login = () => {
+const Register = ({navigation}) => {
   return (
     <View style={{ flex: 1 }}>
         <View style={registerBox}>
-          <ContextProvider>
-            <Steps/>
-          </ContextProvider>
+          <FormContext>
+            <Steps navigation={navigation}/>
+          </FormContext>
         </View>
     </View>
   );
@@ -20,4 +20,4 @@ const registerBox = {
   marginHorizontal: 15
 }
 
-export default Login;
+export default Register;

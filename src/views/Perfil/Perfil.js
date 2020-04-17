@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
+  AsyncStorage,
 } from "react-native";
 import { Icon } from "react-native-elements";
 import Button from "../../components/Button";
@@ -19,7 +20,7 @@ const Perfil = ({ navigation }) => {
         <View style={{ width: "33%" }}>
           <TouchableOpacity
             key={1}
-            onPress={() => {}}
+            onPress={() => AsyncStorage.clear()}
             style={{
               alignSelf: "center",
             }}

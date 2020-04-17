@@ -9,12 +9,13 @@ import {
 import Alert from "../../components/Alert";
 import { TextInput } from "react-native-paper";
 import { AsyncStorage } from 'react-native';
+import Fetch from "../../providers/Fetch";
 
-const Login = ({ navigation }) => {
+const Login = ({ route, navigation }) => {
   const [correo, setCorreo] = useState("");
   const [clave, setClave] = useState("");
 
-  const submitLogin = () => {
+  const submitLogin = async () => {
     if (correo.length === 0 || clave.length === 0) {
       Alert("Faltan Campos","Todos los campos deben ser llenados...");
     } else if (
@@ -24,8 +25,22 @@ const Login = ({ navigation }) => {
     ) {
       Alert("Campo Invalido","Porfavor ingrese un correo valido...");
     } else {
-      if(correo == "test@test.com" && clave == "1234"){
-        AsyncStorage.setItem('token','hola');
+      const resp = await Fetch.post("login",{correo, clave});
+      if(resp.status === 200){
+        const { correo, fullNombre, token } = resp.message;
+        AsyncStorage.setItem('misCitasToken', JSON.stringify({
+          correo, fullNombre, token
+        }), (err) => {
+          if(err){
+            alert("Error")
+            console.log(err);
+          }
+          console.log("Token agregado, login exitoso...");
+        });
+        const setLogged = route.params.set;
+        setLogged(true);
+      }else{
+        Alert("Error", resp.message);
       }
     }
   };

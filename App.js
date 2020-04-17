@@ -12,7 +12,7 @@ import SplashScreen from "./src/components/SplashScreen";
 const Stack = createStackNavigator();
 
 const App = () => {
-  const [loading, logged] = useLoadStatic([
+  const [loading, logged, setLogged] = useLoadStatic([
     require("./assets/1.jpg"),
     require("./assets/2.png"),
     require("./assets/3.png"),
@@ -31,6 +31,7 @@ const App = () => {
             <Stack.Screen
               name="Login"
               component={Login}
+              initialParams={{set: setLogged}}
               options={{
                 title: "Ingresar a Mis Citas",
                 headerStyle: styles.header,
