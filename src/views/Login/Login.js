@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import Alert from "../../components/Alert";
 import { TextInput } from "react-native-paper";
+import { AsyncStorage } from 'react-native';
 
 const Login = ({ navigation }) => {
   const [correo, setCorreo] = useState("");
@@ -23,7 +24,9 @@ const Login = ({ navigation }) => {
     ) {
       Alert("Campo Invalido","Porfavor ingrese un correo valido...");
     } else {
-      Alert("OK","OK");
+      if(correo == "test@test.com" && clave == "1234"){
+        AsyncStorage.setItem('token','hola');
+      }
     }
   };
 
