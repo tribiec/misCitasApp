@@ -1,3 +1,4 @@
+/*
 export const match =(myInfo)=>{
 
 var persona_ciudad=db.query({ciudad:myInfo.ciudad})
@@ -67,3 +68,6 @@ function calcular_distancia(d1,d2){
     var d = R * c;
     return d.toFixed(3);//Retorna tres decimales
 }
+*/
+
+

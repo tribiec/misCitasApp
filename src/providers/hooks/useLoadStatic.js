@@ -18,11 +18,11 @@ const useLoadStatic = (_resources) => {
       try{
         token = await AsyncStorage.getItem('misCitasToken');
         if(token != null){
-          setLogged(true)
+          setLogged(true);
         }else{
           console.log("ERROR, NO SE ENCONTRO TOKEN");
         }
-        //Enviar Token al Back para ver si es valido o no
+        //Enviar Token al Back para ver si es valido o no, desde Perfil...
       }catch(err){
         console.log(err);
       }

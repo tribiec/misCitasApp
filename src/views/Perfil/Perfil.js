@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -8,10 +8,46 @@ import {
   AsyncStorage,
 } from "react-native";
 import { Icon } from "react-native-elements";
-import Button from "../../components/Button";
+import { useStateValue } from "../../providers/ContextProvider";
+import Fetch from "../../providers/Fetch";
+import CheckToken from "../../providers/checkToken";
+import getLocation from "../../helpers/getLocation";
 import PicturesContainer from "../../components/PicturesContainer";
+import MessageComponent from "../../components/Message";
+import Button from "../../components/Button";
 
 const Perfil = ({ navigation }) => {
+  const [location, setLocation] = useState(null);
+  const [enableLoc, setEnableLoc] = useState(false);
+  const [context, dispatch] = useStateValue();
+
+  const sendLocation = async ({ coords }, token) => {
+    const _data = { latitud: coords.latitude, longitud: coords.longitude};
+    const resp = await Fetch.post('user/loc',_data,token).then(e=> e).catch(e => console.log(e));
+    console.log(resp);
+  }
+
+  useEffect(() => {
+    CheckToken(navigation).then(data => {
+      dispatch({type: "SET_NOMBRE", value: data.fullNombre});
+      dispatch({type: "SET_TOKEN", value: data.token});
+      getLocation().then((loc) => {
+        setLocation(loc);
+        setEnableLoc(true);
+        sendLocation(loc, data.token);
+      });
+    });
+  }, []);
+
+  if (!enableLoc)
+    return (
+      <MessageComponent style={instruccionesStyle}>
+        <Text style={[Styles.text]}>
+          Debes permitir o activar la ubicacion para poder usar el buscador
+        </Text>
+      </MessageComponent>
+    );
+
   return (
     <View style={Styles.container}>
       <View style={Styles.perfil}></View>
@@ -46,7 +82,9 @@ const Perfil = ({ navigation }) => {
         <View style={{ width: "33%" }}>
           <TouchableOpacity
             key={2}
-            onPress={() => { navigation.navigate("Buscador") }}
+            onPress={() => {
+              navigation.navigate("Buscador");
+            }}
             style={{
               alignSelf: "flex-end",
               marginRight: 20,
@@ -81,10 +119,17 @@ const Perfil = ({ navigation }) => {
           }}
         />
         <Text style={{ fontSize: 22, fontWeight: "300", marginTop: 10 }}>
-          Manuel Gonzales
+          {context.fullNombre}
         </Text>
       </TouchableOpacity>
-      <View style={{ height: 80, flexDirection: "row", marginTop: 10, marginBottom: 50 }}>
+      <View
+        style={{
+          height: 80,
+          flexDirection: "row",
+          marginTop: 10,
+          marginBottom: 50,
+        }}
+      >
         <View
           style={{
             width: "33.33%",
@@ -92,7 +137,11 @@ const Perfil = ({ navigation }) => {
             alignItems: "flex-end",
           }}
         >
-          <Button style={{ alignItems: "center", top: -15, marginRight: 20 }} name="cog" text="Ajustes"/>
+          <Button
+            style={{ alignItems: "center", top: -15, marginRight: 20 }}
+            name="cog"
+            text="Ajustes"
+          />
         </View>
         <View
           style={{
@@ -101,13 +150,21 @@ const Perfil = ({ navigation }) => {
             alignItems: "center",
           }}
         >
-          <Button style={{ alignItems: "center", top: 15 }} name="camera" text="Subir Foto"/>
+          <Button
+            style={{ alignItems: "center", top: 15 }}
+            name="camera"
+            text="Subir Foto"
+          />
         </View>
         <View style={{ width: "33.33%", height: 40 }}>
-          <Button style={{ alignItems: "flex-start", top: -15, marginLeft: 20 }} name="pencil" text="Editar Info"/>
+          <Button
+            style={{ alignItems: "flex-start", top: -15, marginLeft: 20 }}
+            name="pencil"
+            text="Editar Info"
+          />
         </View>
       </View>
-      <PicturesContainer/>
+      <PicturesContainer />
     </View>
   );
 };
@@ -143,5 +200,12 @@ const Styles = StyleSheet.create({
     zIndex: -1,
   },
 });
+
+const instruccionesStyle = {
+  height: Dimensions.get("window").height,
+  width: Dimensions.get("window").width,
+  justifyContent: "center",
+  alignItems: "center",
+};
 
 export default Perfil;

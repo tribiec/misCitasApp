@@ -6,7 +6,7 @@ export const ContextProvider = ({ children }) => {
   const reducer = (state, action) => {
     switch (action.type) {
       case "SET_NOMBRE":
-        return { ...state, fullNombre: !state.estudia };
+        return { ...state, fullNombre: action.value };
       case "SET_UNIVERSIDAD":
         return { ...state, universidad: action.value };
       case "SET_CIUDAD":

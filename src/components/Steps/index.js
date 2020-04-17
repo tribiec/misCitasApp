@@ -38,6 +38,7 @@ const Steps = ({navigation}) => {
   }
 
   const validarPasoC = async () => {
+    // Este es el ultimo paso, el que enviará los datos de Registro al Back
     if(!(/^[a-zA-Z0-9\.]+@[a-zA-Z0-9]+(\-)?[a-zA-Z0-9]+(\.)?[a-zA-Z0-9]{2,6}?\.[a-zA-Z]{2,6}$/.test(context.correo))){
       setErrors({...errors, pasoC: true});
       Alert("Campos Invalidos","Porfavor ingrese un correo valido")

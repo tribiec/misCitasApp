@@ -8,45 +8,26 @@ import {
 } from "react-native";
 import Swipe from "../../components/Swipe";
 import Header from "../../components/Header";
+import Instrucciones from "../../components/Message";
 
 const Buscador = ({ navigation }) => {
   const [leido, setLeido] = useState(false);
 
-  const Instrucciones = () => {
-    const size = Dimensions.get("window");
-    return (
-      <View
-        style={{
-          height: size.height - 100,
-          width: size.width,
-          justifyContent: "center",
-          alignItems: "center",
-          paddingHorizontal: 10,
-        }}
-      >
-        <Text style={[Styles.text, { marginBottom: 40}]}>
-          Desliza hacia la Izquierda para dar Like y hacia la Derecha para Descartar
-        </Text>
-        <TouchableOpacity onPress={() => setLeido(true)}>
-          <Text
-            style={[Styles.text, {marginBottom: 80}]}
-          >
-            Continuar
-          </Text>
-        </TouchableOpacity>
-      </View>
-    );
-  };
-  
   return (
     <View>
-      <Header navigation={navigation}/>
+      <Header navigation={navigation} />
       {!leido ? (
-        <Instrucciones />
+        <Instrucciones style={instruccionesStyle}>
+          <Text style={[Styles.text, { marginBottom: 40 }]}>
+            Desliza hacia la Izquierda para dar Like y hacia la Derecha para
+            Descartar
+          </Text>
+          <TouchableOpacity onPress={() => setLeido(true)}>
+            <Text style={[Styles.text, { marginBottom: 80 }]}>Continuar</Text>
+          </TouchableOpacity>
+        </Instrucciones>
       ) : (
-        <>
-          <Swipe />
-        </>
+        <Swipe />
       )}
     </View>
   );
@@ -68,9 +49,17 @@ const Styles = StyleSheet.create({
     textShadowRadius: 2,
     textShadowOffset: {
       height: 2,
-      width: 0
-    }
-  }
+      width: 0,
+    },
+  },
 });
+
+const instruccionesStyle = {
+  height: Dimensions.get("window").height - 100,
+  width: Dimensions.get("window").width,
+  justifyContent: "center",
+  alignItems: "center",
+  paddingHorizontal: 10,
+};
 
 export default Buscador;
