@@ -12,7 +12,7 @@ import SplashScreen from "./src/components/SplashScreen";
 const Stack = createStackNavigator();
 
 const App = () => {
-  const loading = useLoadStatic([
+  const [loading, logged] = useLoadStatic([
     require("./assets/1.jpg"),
     require("./assets/2.png"),
     require("./assets/3.png"),
@@ -21,16 +21,12 @@ const App = () => {
   ]);
   const Mensajes = () => <></>;
 
-  return (
+  return loading ? (
+    <SplashScreen />
+  ) : (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
-        {loading ? (
-          <Stack.Screen
-            name="SplashScreen"
-            component={SplashScreen}
-            options={{ headerShown: false }}
-          />
-        ) : (
+        {!logged ? (
           <>
             <Stack.Screen
               name="Login"
@@ -52,6 +48,9 @@ const App = () => {
                 headerBackTitle: "Volver",
               }}
             />
+          </>
+        ) : (
+          <>
             <Stack.Screen
               name="Perfil"
               component={Perfil}
