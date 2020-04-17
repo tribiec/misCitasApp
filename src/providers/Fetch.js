@@ -1,5 +1,7 @@
+import Constants from "expo-constants";
 class Fetch {
   inicial({ method, body = null, endpoint, token = null }) {
+    const { manifest } = Constants;
     let headers = {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -7,7 +9,7 @@ class Fetch {
     if (token != null)
       headers = { ...headers, Authorization: "Bearer " + token };
     return new Promise((resolve, reject) => {
-      fetch(`http://192.168.1.3:5000/${endpoint}`, {
+      fetch(`${manifest.extra.API_ENDPOINT}/${endpoint}`, {
         method,
         headers,
         mode: "cors",
@@ -20,9 +22,9 @@ class Fetch {
     });
   }
 
-  get(endpoint) {
+  get(endpoint, token = null) {
     return new Promise((resolve, reject) => {
-      this.inicial({ method: "GET", endpoint })
+      this.inicial({ method: "GET", endpoint, token})
         .then((e) => resolve(e))
         .catch((err) => reject(err));
     });
@@ -30,7 +32,7 @@ class Fetch {
 
   post(endpoint, body, token = null) {
     return new Promise((resolve, reject) => {
-      let params = { method: "POST", endpoint, body: JSON.stringify(body)};
+      let params = { method: "POST", endpoint, body: (body == null) ? null : JSON.stringify(body)}
       if (token != null) params = { ...params, token };
       this.inicial(params)
         .then((e) => resolve(e))

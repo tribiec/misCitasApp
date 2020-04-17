@@ -25,6 +25,9 @@
       "supportsTablet": true
     },
     "description": "A mobile dating app using React Native with Expo",
-    "githubUrl": "https://github.com/tribiec/misCitasApp"
+    "githubUrl": "https://github.com/tribiec/misCitasApp",
+    "extra": {
+      "API_ENDPOINT": "http://192.168.1.8:5000"
+    }
   }
 }

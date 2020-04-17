@@ -3,44 +3,7 @@ import { StyleSheet, Text, View, Dimensions, Animated } from "react-native";
 import SwipeCards from "react-native-swipe-cards";
 import BackgroundContainer from "../BackgroundContainer";
 
-const Swipe = () => {
-  const [cards, setCards] = useState([
-    {
-      fullNombre: "Margot Robbie",
-      bio: "Bendecida x dios",
-      universidad: "Universidad Rafael Urdaneta",
-      distancia: 6,
-      image: require("../../../assets/1.jpg"),
-    },
-    {
-      fullNombre: "Megan Fox",
-      bio: "Haciendo peliculas",
-      universidad: null,
-      distancia: 6,
-      image: require("../../../assets/2.png"),
-    },
-    {
-      fullNombre: "Megan Fox",
-      bio: "Haciendo peliculas",
-      universidad: null,
-      distancia: 6,
-      image: require("../../../assets/3.png"),
-    },
-    {
-      fullNombre: "Megan Fox",
-      bio: "Haciendo peliculas",
-      universidad: null,
-      distancia: 6,
-      image: require("../../../assets/4.jpg"),
-    },
-    {
-      fullNombre: "Megan Fox",
-      bio: "Haciendo peliculas",
-      universidad: null,
-      distancia: 6,
-      image: require("../../../assets/5.jpg"),
-    },
-  ]);
+const Swipe = ({cards}) => {
   const [agotado, setAgotado] = useState(false);
   const [showOk, setOk] = useState(false);
   const [showNo, setNo] = useState(false);
@@ -142,7 +105,7 @@ const Swipe = () => {
 
   const SinCards = () => (
     <View style={styles.noMoreCards}>
-      <Text>No more cards</Text>
+      <Text>No hay mas cards</Text>
     </View>
   );
 
@@ -150,7 +113,7 @@ const Swipe = () => {
     <>
       <SwipeCards
         cards={cards}
-        loop={true}
+        loop={false}
         renderCard={(cardData) => <Card {...cardData} />}
         renderNoMoreCards={() => <SinCards />}
         showYup={false}

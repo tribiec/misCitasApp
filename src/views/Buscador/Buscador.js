@@ -6,12 +6,68 @@ import {
   TouchableOpacity,
   Dimensions,
 } from "react-native";
+import { useStateValue } from "../../providers/ContextProvider";
 import Swipe from "../../components/Swipe";
 import Header from "../../components/Header";
 import Instrucciones from "../../components/Message";
+import Fetch from "../../providers/Fetch";
 
 const Buscador = ({ navigation }) => {
   const [leido, setLeido] = useState(false);
+  const [cards, setCards] = useState([]);
+  const [context, dispatch] = useStateValue();
+
+  useEffect(() => {
+    const cargarCards = async () => {
+      try{
+        const resp = await Fetch.get('user/swipes', context.token);
+        if(resp.status === 200 && resp.message.lenght === 0){
+          setCards([
+            {
+              fullNombre: "Margot Robbie",
+              bio: "Bendecida x dios",
+              universidad: "Universidad Rafael Urdaneta",
+              distancia: 6,
+              image: require("../../../assets/1.jpg"),
+            },
+            {
+              fullNombre: "Megan Fox",
+              bio: "Haciendo peliculas",
+              universidad: null,
+              distancia: 6,
+              image: require("../../../assets/2.png"),
+            },
+            {
+              fullNombre: "Megan Fox",
+              bio: "Haciendo peliculas",
+              universidad: null,
+              distancia: 6,
+              image: require("../../../assets/3.png"),
+            },
+            {
+              fullNombre: "Megan Fox",
+              bio: "Haciendo peliculas",
+              universidad: null,
+              distancia: 6,
+              image: require("../../../assets/4.jpg"),
+            },
+            {
+              fullNombre: "Megan Fox",
+              bio: "Haciendo peliculas",
+              universidad: null,
+              distancia: 6,
+              image: require("../../../assets/5.jpg"),
+            },
+          ]);
+        }else{
+          setCards(resp.message);
+        }
+      }catch(err){
+        console.log("Error en cargar Cards");
+      }
+    }
+    cargarCards();
+  }, []);
 
   return (
     <View>
@@ -27,7 +83,7 @@ const Buscador = ({ navigation }) => {
           </TouchableOpacity>
         </Instrucciones>
       ) : (
-        <Swipe />
+        <Swipe cards={cards}/>
       )}
     </View>
   );
