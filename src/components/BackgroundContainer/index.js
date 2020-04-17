@@ -1,15 +1,11 @@
 import React from "react";
-import { View, Text, StyleSheet, ImageBackground } from "react-native";
+import { View, StyleSheet, ImageBackground } from "react-native";
 
-const BackgroundContainer = (props) => {
+const BackgroundContainer = ({ children, image }) => {
   return (
     <View style={styles.container}>
-      <ImageBackground
-        source={require("../../../assets/drink.jpg")}
-        style={styles.image}
-        resizeMode="cover"
-      >
-        {props.children}
+      <ImageBackground source={image} style={styles.image} imageStyle={{borderRadius: 16}} resizeMode="cover">
+        {children}
       </ImageBackground>
     </View>
   );
@@ -19,9 +15,11 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     flex: 2,
+    height: "100%",
+    width: "100%"
   },
   image: {
-    flex: 1,
+    flex: 1
   },
 });
 

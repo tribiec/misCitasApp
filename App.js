@@ -2,20 +2,25 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import SplashScreen from "./src/components/SplashScreen";
+import useLoadStatic from "./src/providers/hooks/useLoadStatic";
 import Login from "./src/views/Login/Login";
 import Register from "./src/views/Register/Register";
 import Perfil from "./src/views/Perfil/Perfil";
-import useLoadStatic from "./src/providers/hooks/useLoadStatic";
+import Buscador from "./src/views/Buscador/Buscador";
+import SplashScreen from "./src/components/SplashScreen";
 
 const Stack = createStackNavigator();
 
 const App = () => {
   const loading = useLoadStatic([
-    require("./assets/drink.jpg"),
-    require("./assets/date.jpg"),
+    require("./assets/1.jpg"),
+    require("./assets/2.png"),
+    require("./assets/3.png"),
+    require("./assets/4.jpg"),
+    require("./assets/5.jpg"),
   ]);
-  const Mensajes = () => (<></>);
+  const Mensajes = () => <></>;
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
@@ -50,6 +55,11 @@ const App = () => {
             <Stack.Screen
               name="Perfil"
               component={Perfil}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Buscador"
+              component={Buscador}
               options={{ headerShown: false }}
             />
             <Stack.Screen

@@ -1,192 +1,230 @@
-import React, { Component } from "react";
-import {
-    View,
-    Text,
-    StyleSheet,
-    Dimensions,
-    Image,
-    Animated,
-    PanResponder
-} from "react-native";
+import React, { useState, useRef, useEffect } from "react";
+import { StyleSheet, Text, View, Dimensions, Animated } from "react-native";
+import SwipeCards from "react-native-swipe-cards";
+import BackgroundContainer from "../BackgroundContainer";
 
-const SCREEN_HEIGHT = Dimensions.get("window").height
-const SCREEN_WIDTH = Dimensions.get("window").width
+const Swipe = () => {
+  const [cards, setCards] = useState([
+    {
+      fullNombre: "Margot Robbie",
+      bio: "Bendecida x dios",
+      universidad: "Universidad Rafael Urdaneta",
+      distancia: 6,
+      image: require("../../../assets/1.jpg"),
+    },
+    {
+      fullNombre: "Megan Fox",
+      bio: "Haciendo peliculas",
+      universidad: null,
+      distancia: 6,
+      image: require("../../../assets/2.png"),
+    },
+    {
+      fullNombre: "Megan Fox",
+      bio: "Haciendo peliculas",
+      universidad: null,
+      distancia: 6,
+      image: require("../../../assets/3.png"),
+    },
+    {
+      fullNombre: "Megan Fox",
+      bio: "Haciendo peliculas",
+      universidad: null,
+      distancia: 6,
+      image: require("../../../assets/4.jpg"),
+    },
+    {
+      fullNombre: "Megan Fox",
+      bio: "Haciendo peliculas",
+      universidad: null,
+      distancia: 6,
+      image: require("../../../assets/5.jpg"),
+    },
+  ]);
+  const [agotado, setAgotado] = useState(false);
+  const [showOk, setOk] = useState(false);
+  const [showNo, setNo] = useState(false);
 
+  const fadeAnim = useRef(new Animated.Value(0)).current;
 
+  const fadeIn = () => {
+    // Will change fadeAnim value to 1 in 5 seconds
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 500,
+    }).start();
+  };
 
-class DeckSwiper extends Component {
+  const fadeOut = () => {
+    // Will change fadeAnim value to 0 in 5 seconds
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 250,
+    }).start(() => {
+      setOk(false);
+    });
+  };
 
-    constructor(props) {
-        super(props)
+  const Ok = () => {
+    useEffect(() => {
+      fadeIn();
+      setTimeout(() => {
+        fadeOut();
+      }, 500);
+    }, []);
 
-        this.position = new Animated.ValueXY()
-        this.swipedCardPosition = new Animated.ValueXY({ x: 0, y: -SCREEN_HEIGHT })
-        this.state = {
-            currentIndex: 0,
-            cards:props.cards
-        }
+    return (
+      <Animated.View
+        style={{
+          opacity: fadeAnim, // Bind opacity to animated value
+        }}
+      >
+        <View style={styles.like}>
+          <Text style={textStyles.like}>LIKE!</Text>
+        </View>
+      </Animated.View>
+    );
+  };
 
+  const handleNo = () => {};
+
+  const handleYes = () => {
+    // if(showOk) setOk(false);
+    setOk(true);
+  };
+
+  const cardRetirada = (index) => {
+    console.log(`The index is ${index}`);
+    const CARD_REFRESH_LIMIT = 1;
+    if (cards.length - index <= CARD_REFRESH_LIMIT + 1) {
+      console.log(`There are only ${cards.length - index - 1} cards left.`);
+      if (!agotado) {
+        setAgotado(true);
+      }
     }
+  };
 
-    componentWillMount() {
-
-        this.PanResponder = PanResponder.create({
-
-            onStartShouldSetPanResponder: (e, gestureState) => true,
-            onPanResponderMove: (evt, gestureState) => {
-
-                if (gestureState.dy > 0 && (this.state.currentIndex > 0)) {
-                    this.swipedCardPosition.setValue({
-                        x: 0, y: -SCREEN_HEIGHT + gestureState.dy
-                    })
-                }
-                else {
-
-                    this.position.setValue({ y: gestureState.dy })
-
-                }
-            },
-            onPanResponderRelease: (evt, gestureState) => {
-
-                if (this.state.currentIndex > 0 && gestureState.dy > 50 && gestureState.vy > 0.7) {
-                    Animated.timing(this.swipedCardPosition, {
-                        toValue: ({ x: 0, y: 0 }),
-                        duration: 400
-                    }).start(() => {
-
-                        this.setState({ currentIndex: this.state.currentIndex - 1 })
-                        this.swipedCardPosition.setValue({ x: 0, y: -SCREEN_HEIGHT })
-
-                    })
-                }
-                else if (-gestureState.dy > 50 && -gestureState.vy > 0.7) {
-
-                    Animated.timing(this.position, {
-                        toValue: ({ x: 0, y: -SCREEN_HEIGHT }),
-                        duration: 400
-                    }).start(() => {
-
-                        this.setState({ currentIndex: this.state.currentIndex + 1 })
-                        this.position.setValue({ x: 0, y: 0 })
-
-                    })
-                }
-                else {
-                    Animated.parallel([
-                        Animated.spring(this.position, {
-                            toValue: ({ x: 0, y: 0 })
-                        }),
-                        Animated.spring(this.swipedCardPosition, {
-                            toValue: ({ x: 0, y: -SCREEN_HEIGHT })
-                        })
-
-                    ]).start()
-
-                }
-            }
-        })
-
-    }
-    renderCards = () => {
-
-        return this.state.cards.map((item, i) => {
-
-            if (i == this.state.currentIndex - 1) {
-
-                return (
-                    <Animated.View key={item.id} style={this.swipedCardPosition.getLayout()}
-                        {...this.PanResponder.panHandlers}
-                    >
-                        <View style={{ flex: 1, position: 'absolute', height: SCREEN_HEIGHT, width: SCREEN_WIDTH, backgroundColor: 'white' }}>
-
-                            <View style={{ flex: 2, backgroundColor: 'black' }}>
-                                <Image source={this.state.cards[i].uri}
-                                    style={{ flex: 1, height: null, width: null, resizeMode: 'center' }}
-                                ></Image>
-                            </View>
-                            <View style={{ flex: 3, padding: 5 }}>
-                                <Text>
-                                    Labore irure excepteur deserunt qui. Occaecat do consequat velit adipisicing consequat reprehenderit incididunt duis irure ea consequat ipsum Lorem dolor. Culpa consectetur nisi officia excepteur anim mollit nostrud ut voluptate. Quis velit dolore fugiat veniam eu labore adipisicing ipsum incididunt ad amet. Do veniam adipisicing veniam commodo exercitation officia et commodo Lorem nostrud culpa tempor dolor.
-                                    Labore irure excepteur deserunt qui. Occaecat do consequat velit adipisicing consequat reprehenderit incididunt duis irure ea consequat ipsum Lorem dolor. Culpa consectetur nisi officia excepteur anim mollit nostrud ut voluptate. Quis velit dolore fugiat veniam eu labore adipisicing ipsum incididunt ad amet. Do veniam adipisicing veniam commodo exercitation officia et commodo Lorem nostrud culpa tempor dolor.
-                                    Labore irure excepteur deserunt qui. Occaecat do consequat velit adipisicing consequat reprehenderit incididunt duis irure ea consequat ipsum Lorem dolor. Culpa consectetur nisi officia excepteur anim mollit nostrud ut voluptate. Quis velit dolore fugiat veniam eu labore adipisicing ipsum incididunt ad amet. Do veniam adipisicing veniam commodo exercitation officia et commodo Lorem nostrud culpa tempor dolor.
+  const Card = (props) => {
+    const { image, universidad, fullNombre, distancia, bio } = props;
+    const size = Dimensions.get("window");
+    useEffect(() => {}, []);
+    return (
+      <View style={{ height: size.height - 120, width: size.width - 30 }}>
+        <BackgroundContainer image={image}>
+          <View
+            style={{
+              height: "100%",
+              width: "100%",
+              justifyContent: "flex-end",
+              paddingBottom: 25,
+              paddingLeft: 20,
+            }}
+          >
+            <Text style={[textStyles.general, textStyles.title]}>
+              {fullNombre}
+            </Text>
+            <Text style={[textStyles.general, textStyles.separation]}>
+              {bio}
+            </Text>
+            {universidad ? (
+              <Text style={[textStyles.general, textStyles.separation]}>
+                {universidad}
               </Text>
-                            </View>
-                        </View>
-                    </Animated.View>
-                )
-            }
-            else if (i < this.state.currentIndex) {
-                return null
-            }
-            if (i == this.state.currentIndex) {
+            ) : null}
+            <Text style={[textStyles.general, textStyles.separation]}>
+              A {distancia} km de distancia
+            </Text>
+          </View>
+        </BackgroundContainer>
+      </View>
+    );
+  };
 
-                return (
+  const SinCards = () => (
+    <View style={styles.noMoreCards}>
+      <Text>No more cards</Text>
+    </View>
+  );
 
-                    <Animated.View key={item.id} style={this.position.getLayout()}
-                        {...this.PanResponder.panHandlers}
-                    >
-                        <View style={{ flex: 1, position: 'absolute', height: SCREEN_HEIGHT, width: SCREEN_WIDTH, backgroundColor: 'white' }}>
-
-                            <View style={{ flex: 2, backgroundColor: 'black' }}>
-                                <Image source={this.state.cards[i].uri}
-                                    style={{ flex: 1, height: null, width: null, resizeMode: 'center' }}
-                                ></Image>
-                            </View>
-                            <View style={{ flex: 3, padding: 5 }}>
-                                <Text>
-                                    Labore irure excepteur deserunt qui. Occaecat do consequat velit adipisicing consequat reprehenderit incididunt duis irure ea consequat ipsum Lorem dolor. Culpa consectetur nisi officia excepteur anim mollit nostrud ut voluptate. Quis velit dolore fugiat veniam eu labore adipisicing ipsum incididunt ad amet. Do veniam adipisicing veniam commodo exercitation officia et commodo Lorem nostrud culpa tempor dolor.
-                                    Labore irure excepteur deserunt qui. Occaecat do consequat velit adipisicing consequat reprehenderit incididunt duis irure ea consequat ipsum Lorem dolor. Culpa consectetur nisi officia excepteur anim mollit nostrud ut voluptate. Quis velit dolore fugiat veniam eu labore adipisicing ipsum incididunt ad amet. Do veniam adipisicing veniam commodo exercitation officia et commodo Lorem nostrud culpa tempor dolor.
-                                    Labore irure excepteur deserunt qui. Occaecat do consequat velit adipisicing consequat reprehenderit incididunt duis irure ea consequat ipsum Lorem dolor. Culpa consectetur nisi officia excepteur anim mollit nostrud ut voluptate. Quis velit dolore fugiat veniam eu labore adipisicing ipsum incididunt ad amet. Do veniam adipisicing veniam commodo exercitation officia et commodo Lorem nostrud culpa tempor dolor.
-              </Text>
-                            </View>
-                        </View>
-                    </Animated.View>
-                )
-            }
-            else {
-
-                return (
-                    <Animated.View key={item.id}
-
-                    >
-                        <View style={{ flex: 1, position: 'absolute', height: SCREEN_HEIGHT, width: SCREEN_WIDTH, backgroundColor: 'white' }}>
-
-                            <View style={{ flex: 2, backgroundColor: 'black' }}>
-                                <Image source={this.state.cards[i].uri}
-                                    style={{ flex: 1, height: null, width: null, resizeMode: 'center' }}
-                                ></Image>
-                            </View>
-                            <View style={{ flex: 3, padding: 5 }}>
-                                <Text>
-                                    Labore irure excepteur deserunt qui. Occaecat do consequat velit adipisicing consequat reprehenderit incididunt duis irure ea consequat ipsum Lorem dolor. Culpa consectetur nisi officia excepteur anim mollit nostrud ut voluptate. Quis velit dolore fugiat veniam eu labore adipisicing ipsum incididunt ad amet. Do veniam adipisicing veniam commodo exercitation officia et commodo Lorem nostrud culpa tempor dolor.
-                                    Labore irure excepteur deserunt qui. Occaecat do consequat velit adipisicing consequat reprehenderit incididunt duis irure ea consequat ipsum Lorem dolor. Culpa consectetur nisi officia excepteur anim mollit nostrud ut voluptate. Quis velit dolore fugiat veniam eu labore adipisicing ipsum incididunt ad amet. Do veniam adipisicing veniam commodo exercitation officia et commodo Lorem nostrud culpa tempor dolor.
-                                    Labore irure excepteur deserunt qui. Occaecat do consequat velit adipisicing consequat reprehenderit incididunt duis irure ea consequat ipsum Lorem dolor. Culpa consectetur nisi officia excepteur anim mollit nostrud ut voluptate. Quis velit dolore fugiat veniam eu labore adipisicing ipsum incididunt ad amet. Do veniam adipisicing veniam commodo exercitation officia et commodo Lorem nostrud culpa tempor dolor.
-              </Text>
-                            </View>
-                        </View>
-                    </Animated.View>
-                )
-
-            }
-        }).reverse()
-
-    }
-
-    render() {
-        return (
-            <View style={{ flex: 1 }}>
-                {this.renderCards()}
-            </View>
-        );
-    }
-}
-export default DeckSwiper;
+  return (
+    <>
+      <SwipeCards
+        cards={cards}
+        loop={true}
+        renderCard={(cardData) => <Card {...cardData} />}
+        renderNoMoreCards={() => <SinCards />}
+        showYup={false}
+        showNope={false}
+        handleYup={handleYes}
+        handleNope={handleNo}
+        cardRemoved={cardRetirada}
+      />
+      {showOk ? <Ok /> : null}
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
+  card: {
+    alignItems: "center",
+    borderRadius: 50,
+    elevation: 1,
+    minHeight: 500,
+    backgroundColor: "red",
+  },
+  text: {
+    fontSize: 20,
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+  noMoreCards: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  like: {
+    backgroundColor: "#C52233",
+    height: 100,
+    width: "100%",
+    position: "absolute",
+    zIndex: 2,
+    left: 0,
+    top: Dimensions.get("window").height / 2 - 150,
+    justifyContent: "center",
+  },
 });
 
+const textStyles = StyleSheet.create({
+  general: {
+    color: "white",
+    fontWeight: "500",
+    textShadowColor: "black",
+    textShadowRadius: 1,
+    textShadowOffset: {
+      height: 1,
+      width: 0,
+    },
+    fontSize: 16,
+  },
+  title: {
+    fontSize: 28,
+  },
+  separation: {
+    marginTop: 5,
+  },
+  info: {
+    color: "#797A7A",
+    fontSize: 20,
+    marginBottom: 30,
+    fontWeight: "300",
+    textAlign: "center",
+  },
+  like: {
+    textAlign: "center",
+    fontSize: 50,
+    fontWeight: "800",
+    color: "white",
+  },
+});
+
+export default Swipe;

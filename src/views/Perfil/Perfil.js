@@ -10,7 +10,7 @@ import { Icon } from "react-native-elements";
 import Button from "../../components/Button";
 import PicturesContainer from "../../components/PicturesContainer";
 
-const Perfil = () => {
+const Perfil = ({ navigation }) => {
   return (
     <View style={Styles.container}>
       <View style={Styles.perfil}></View>
@@ -45,7 +45,7 @@ const Perfil = () => {
         <View style={{ width: "33%" }}>
           <TouchableOpacity
             key={2}
-            onPress={() => {}}
+            onPress={() => { navigation.navigate("Buscador") }}
             style={{
               alignSelf: "flex-end",
               marginRight: 20,
